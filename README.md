@@ -4,7 +4,7 @@ latest snapshot. See the *Versions* section below for more information.
 
 To simply use the latest stable version, run
 
-    docker run -d -p 25565:25565 --name mc itzg/minecraft-server
+    docker run -d -p 25565:25565 --name mc razerok/minecraft-server
 
 where the standard server port, 25565, will be exposed on your host machine.
 
@@ -18,7 +18,7 @@ will serve your Minecraft server on your host's port 25566 since the `-p` syntax
 
 Speaking of multiple servers, it's handy to give your containers explicit names using `--name`, such as
 
-    docker run -d -p 25565:25565 --name mc itzg/minecraft-server
+    docker run -d -p 25565:25565 --name mc razerok/minecraft-server
 
 With that you can easily view the logs, stop, or re-start the container:
 
@@ -51,7 +51,7 @@ _The `-i` is not needed in this case._
 
 In order to attach and interact with the Minecraft server, add `-it` when starting the container, such as
 
-    docker run -d -it -p 25565:25565 --name mc itzg/minecraft-server
+    docker run -d -it -p 25565:25565 --name mc razerok/minecraft-server
 
 With that you can attach and interact at any time using
 
@@ -74,7 +74,7 @@ Mojang now requires accepting the [Minecraft EULA](https://account.mojang.com/do
 
 such as
 
-        docker run -d -it -e EULA=TRUE -p 25565:25565 --name mc itzg/minecraft-server
+        docker run -d -it -e EULA=TRUE -p 25565:25565 --name mc razerok/minecraft-server
 
 ## Attaching data directory to host filesystem
 
@@ -149,7 +149,7 @@ but you can also choose to run a specific version with `-e FORGEVERSION=10.13.4.
 
     $ docker run -d -v /path/on/host:/data -e VERSION=1.7.10 \
         -e TYPE=FORGE -e FORGEVERSION=10.13.4.1448 \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 To use a pre-downloaded Forge installer, place it in the attached `/data` directory and
 specify the name of the installer file with `FORGE_INSTALLER`, such as:
@@ -213,7 +213,7 @@ Enable Bukkit/Spigot server mode by adding a `-e TYPE=BUKKIT -e VERSION=1.8` or 
 
     docker run -d -v /path/on/host:/data \
         -e TYPE=SPIGOT -e VERSION=1.8 \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 If you are hosting your own copy of Bukkit/Spigot you can override the download URLs with:
 * -e BUKKIT_DOWNLOAD_URL=<url>
@@ -226,7 +226,7 @@ pass `--noconsole` at the very end of the command line and not use `-it`. For ex
 
     docker run -d -v /path/on/host:/data \
         -e TYPE=SPIGOT -e VERSION=1.8 \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server --noconsole
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server --noconsole
 
 
 You can install Bukkit plugins in two ways...
@@ -275,14 +275,14 @@ Enable PaperSpigot server mode by adding a `-e TYPE=PAPER -e VERSION=1.9.4` to y
 
     docker run -d -v /path/on/host:/data \
         -e TYPE=PAPER -e VERSION=1.9.4 \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 __NOTE: to avoid pegging the CPU when running PaperSpigot,__ you will need to
 pass `--noconsole` at the very end of the command line and not use `-it`. For example,
 
     docker run -d -v /path/on/host:/data \
         -e TYPE=PAPER -e VERSION=1.9.4 \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server --noconsole
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server --noconsole
 
 If you are hosting your own copy of PaperSpigot you can override the download URL with:
 * -e PAPER_DOWNLOAD_URL=<url>
@@ -343,7 +343,7 @@ Now you can add a `-e FTB_SERVER_MOD=name_of_modpack.zip` to your command-line.
 
     $ docker run -d -v /path/on/host:/data -e TYPE=FTB \
         -e FTB_SERVER_MOD=FTBPresentsSkyfactory3Server_3.0.6.zip \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 Instead of explicitly downloading a modpack from the Feed the Beast site, you
 can you set `FTB_SERVER_MOD` to the **server** URL of a modpack, such as
@@ -372,7 +372,7 @@ with `FTB_SERVER_MOD` specifying the updated modpack file.
 
     $ docker run -d -v /path/on/host:/data -e TYPE=FTB \
         -e FTB_SERVER_MOD=FTBPresentsSkyfactory3Server_3.0.7.zip \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 ### FTB server JVM options
 
@@ -388,7 +388,7 @@ example:
     $ docker run -d -v /path/on/host:/data -e TYPE=FTB \
         -e MIN_RAM=1G -e MAX_RAM=2G -e PERMGEN_SIZE=512M \
         -e FTB_SERVER_MOD=FTBPresentsSkyfactory3Server_3.0.6.zip \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 
 Note: The FTB server start script will also override other options,
 like `MOTD`.
@@ -410,7 +410,7 @@ By default the container will run the latest `STABLE` version.
 If you want to run a specific version, you can add `-e SPONGEVERSION=1.11.2-6.1.0-BETA-19` to your command-line.
 
     docker run -d -v /path/on/host:/data -e TYPE=SPONGEVANILLA \
-        -p 25565:25565 -e EULA=TRUE --name mc itzg/minecraft-server
+        -p 25565:25565 -e EULA=TRUE --name mc razerok/minecraft-server
 	
 You can also choose to use the `EXPERIMENTAL` branch. 
 Just change it with `SPONGEBRANCH`, such as:
@@ -433,7 +433,7 @@ minecraft-server:
   environment:
     EULA: "TRUE"
 
-  image: itzg/minecraft-server
+  image: razerok/minecraft-server
 
   container_name: mc
 
