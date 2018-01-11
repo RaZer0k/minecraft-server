@@ -46,6 +46,8 @@ if [ ! -e server.properties ]; then
   setServerProp "pvp" "$PVP"
   setServerProp "generator-settings" "$GENERATOR_SETTINGS"
   setServerProp "online-mode" "$ONLINE_MODE"
+  setServerProp "allow-flight" "$ALLOW_FLIGHT"
+  setServerProp "snooper-enabled" "$SNOOPER_ENABLED"
 
   if [ -n "$LEVEL_TYPE" ]; then
     # normalize to uppercase

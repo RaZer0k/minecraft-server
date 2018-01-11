@@ -25,11 +25,24 @@ if [[ -z $FORGE_INSTALLER && -z $FORGE_INSTALLER_URL ]]; then
           exit 2
         fi
       fi
-      ;;
+    ;;
+
+    LATEST)
+      curl -fsSL -o /tmp/forge.json http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+      FORGE_VERSION=$(cat /tmp/forge.json | jq -r ".promos[\"$VANILLA_VERSION-latest\"]")
+      if [ $FORGE_VERSION = null ]; then
+        FORGE_VERSION=$(cat /tmp/forge.json | jq -r ".promos[\"$VANILLA_VERSION-recommended\"]")
+        if [ $FORGE_VERSION = null ]; then
+          echo "ERROR: Version $VANILLA_VERSION is not supported by Forge"
+          echo "       Refer to http://files.minecraftforge.net/ for supported versions"
+          exit 2
+        fi
+      fi
+    ;;
 
     *)
       FORGE_VERSION=$FORGEVERSION
-      ;;
+    ;;
   esac
 
   normForgeVersion=$VANILLA_VERSION-$FORGE_VERSION-$norm
