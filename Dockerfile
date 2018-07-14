@@ -22,10 +22,7 @@ HEALTHCHECK CMD mcstatus localhost ping
 RUN addgroup -g 1000 minecraft \
   && adduser -Ss /bin/false -u 1000 -G minecraft -h /home/minecraft minecraft \
   && mkdir /data \
-  && mkdir /config \
-  && mkdir /mods \
-  && mkdir /plugins \
-  && chown minecraft:minecraft /data /config /mods /plugins /home/minecraft
+  && chown minecraft:minecraft /data /home/minecraft
 
 EXPOSE 25565 25575
 
@@ -36,7 +33,7 @@ RUN chmod +x /start*
 COPY mcadmin.jq /usr/share
 RUN chmod +x /usr/local/bin/*
 
-VOLUME ["/data","/mods","/config","/plugins","/home/minecraft"]
+VOLUME ["/data","/home/minecraft"]
 COPY server.properties /tmp/server.properties
 WORKDIR /data
 
