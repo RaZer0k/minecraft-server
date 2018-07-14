@@ -24,9 +24,9 @@ if [ -n "$ICON" -a ! -e server-icon.png ]; then
 fi
 
 # Make sure files exist and are valid JSON (for pre-1.12 to 1.12 upgrades)
-if [[ -z "ls *.json" ]]; then
+if [[ -z "ls /data/*.json" ]]; then
   echo "Checking JSON files"
-  for j in *.json; do
+  for j in /data/*.json; do
     if [[ $(python -c "print open('$j').read().strip()==''") = True ]]; then
       echo "Fixing JSON $j"
       echo '[]' > $j

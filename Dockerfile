@@ -2,7 +2,7 @@ FROM openjdk:8-jre-alpine
 
 LABEL maintainer "itzg"
 
-RUN apk add -U \
+RUN apk add --no-cache \
           openssl \
           imagemagick \
           lsof \
@@ -11,9 +11,7 @@ RUN apk add -U \
           curl iputils wget \
           git \
           jq \
-          mysql-client \
-          python python-dev py2-pip && \
-        rm -rf /var/cache/apk/*
+          python python-dev py2-pip
 
 RUN pip install mcstatus
 
@@ -28,8 +26,7 @@ EXPOSE 25565 25575
 
 ADD https://github.com/itzg/restify/releases/download/1.0.4/restify_linux_amd64 /usr/local/bin/restify
 ADD https://github.com/itzg/rcon-cli/releases/download/1.3/rcon-cli_linux_amd64 /usr/local/bin/rcon-cli
-COPY start* /
-RUN chmod +x /start*
+COPY start* /usr/local/bin/
 COPY mcadmin.jq /usr/share
 RUN chmod +x /usr/local/bin/*
 
@@ -37,7 +34,7 @@ VOLUME ["/data","/home/minecraft"]
 COPY server.properties /tmp/server.properties
 WORKDIR /data
 
-ENTRYPOINT [ "/start" ]
+ENTRYPOINT [ "start" ]
 
 ENV UID=1000 GID=1000 \
     MOTD="A Minecraft Server Powered by Docker" \

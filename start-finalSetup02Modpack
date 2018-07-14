@@ -36,4 +36,4 @@ case "X$MODPACK" in
 esac
 fi
 
-exec /start-finalSetup03Modconfig $@
+exec start-finalSetup03Modconfig $@

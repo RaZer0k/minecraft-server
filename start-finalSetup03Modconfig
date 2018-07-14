@@ -22,4 +22,4 @@ case "X$MODCONFIG" in
 esac
 fi
 
-exec /start-finalSetup04ServerProperties $@
+exec start-finalSetup04ServerProperties $@

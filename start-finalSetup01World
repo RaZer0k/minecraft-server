@@ -33,4 +33,4 @@ case "X$WORLD" in
 esac
 fi
 
-exec /start-finalSetup02Modpack $@
+exec start-finalSetup02Modpack $@

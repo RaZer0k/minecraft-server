@@ -68,4 +68,4 @@ fi
 export TYPE=SPIGOT
 
 # Continue to Final Setup
-exec /start-finalSetup01World $@
+exec start-finalSetup01World $@

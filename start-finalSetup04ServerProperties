@@ -116,4 +116,4 @@ if [ ! -e server.properties ]; then
   fi
 fi
 
-exec /start-minecraftFinalSetup $@
+exec start-minecraftFinalSetup $@
