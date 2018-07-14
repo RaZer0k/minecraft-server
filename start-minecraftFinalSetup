@@ -36,31 +36,6 @@ else
   echo "Skipping JSON check. No files present."
 fi
 
-# If any modules have been provided, copy them over
-mkdir -p /data/mods
-for m in /mods/*.{jar,zip}
-do
-  if [ -f "$m" -a ! -f "/data/mods/$m" ]; then
-    echo Copying mod `basename "$m"`
-    cp "$m" /data/mods
-  fi
-done
-[ -d /data/config ] || mkdir /data/config
-for c in /config/*
-do
-  if [ -f "$c" ]; then
-    echo Copying configuration `basename "$c"`
-    cp -rf "$c" /data/config
-  fi
-done
-
-if [ "$TYPE" = "SPIGOT" ]; then
-  if [ -d /plugins ]; then
-    echo Copying any Bukkit plugins over
-    cp -r /plugins /data
-  fi
-fi
-
 EXTRA_ARGS=""
 # Optional disable console
 if [[ ${CONSOLE} = false || ${CONSOLE} = FALSE ]]; then
