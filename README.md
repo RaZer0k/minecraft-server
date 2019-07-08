@@ -219,8 +219,6 @@ If you are hosting your own copy of Bukkit/Spigot you can override the download 
 * -e BUKKIT_DOWNLOAD_URL=<url>
 * -e SPIGOT_DOWNLOAD_URL=<url>
 
-You can build spigot from source by adding `-e BUILD_FROM_SOURCE=true`
-
 __NOTE: to avoid pegging the CPU when running Spigot,__ you will need to
 pass `--noconsole` at the very end of the command line and not use `-it`. For example,
 
