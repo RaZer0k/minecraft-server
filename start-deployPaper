@@ -3,16 +3,28 @@
 export SERVER=paper_server.jar
 if [ ! -f $SERVER ]; then
   local build
+  local helper
   case "$VERSION" in
-    latest|LATEST|1.12.2)
+    latest|LATEST|1.14.3)
+      helper="-1.14"
+      build="lastSuccessfulBuild";;
+    1.13.2)
+      helper="-1.13"
+      build="lastSuccessfulBuild";;
+    1.12.2)
+      helper=""
       build="lastSuccessfulBuild";;
     1.11.2)
+      helper=""
       build="1104";;
     1.10.2)
+      helper=""
       build="916";;
     1.9.4)
+      helper=""
       build="773";;
     1.8.8)
+      helper=""
       build="443";;
     *)
       build="nosupp";;
@@ -20,7 +32,7 @@ if [ ! -f $SERVER ]; then
 
   if [ $build != "nosupp" ]; then
     rm $SERVER
-    downloadUrl=${PAPER_DOWNLOAD_URL:-https://papermc.io/ci/job/Paper/$build/artifact/paperclip.jar}
+    downloadUrl=${PAPER_DOWNLOAD_URL:-https://papermc.io/ci/job/Paper$helper/$build/artifact/paperclip.jar}
     curl -fsSL -o $SERVER "$downloadUrl"
     if [ ! -f $SERVER ]; then
       echo "ERROR: failed to download from $downloadUrl (status=$?)"
