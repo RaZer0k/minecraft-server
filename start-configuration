@@ -37,7 +37,6 @@ if [[ $PROXY ]]; then
 fi
 
 export SERVER_PROPERTIES=/data/server.properties
-export FTB_DIR=/data/FeedTheBeast
 export VERSIONS_JSON=https://launchermeta.mojang.com/mc/game/version_manifest.json
 
 echo "Checking version information."
@@ -72,10 +71,6 @@ case "$TYPE" in
     exec start-deployForge $@
   ;;
 
-  FTB|ftb)
-    exec start-deployFTB $@
-  ;;
-
   VANILLA|vanilla)
     exec start-deployVanilla $@
   ;;
@@ -86,7 +81,7 @@ case "$TYPE" in
 
   *)
       echo "Invalid type: '$TYPE'"
-      echo "Must be: VANILLA, FORGE, BUKKIT, SPIGOT, PAPER, FTB, SPONGEVANILLA"
+      echo "Must be: VANILLA, FORGE, BUKKIT, SPIGOT, PAPER, SPONGEVANILLA"
       exit 1
   ;;
 
