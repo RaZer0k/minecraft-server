@@ -51,18 +51,10 @@ fi
 echo "Setting initial memory to ${INIT_MEMORY:-${MEMORY}} and max to ${MAX_MEMORY:-${MEMORY}}"
 JVM_OPTS="-Xms${INIT_MEMORY:-${MEMORY}} -Xmx${MAX_MEMORY:-${MEMORY}} ${JVM_OPTS}"
 
-if [[ ${TYPE} == "FEED-THE-BEAST" ]]; then
-    cp -f $SERVER_PROPERTIES ${FTB_DIR}/server.properties
-    cp -f /data/{eula,ops,white-list}.txt ${FTB_DIR}/
-    cd ${FTB_DIR}
-    echo "Running FTB server modpack start ..."
-    exec ${FTB_SERVER_START}
+# If we have a bootstrap.txt file... feed that in to the server stdin
+if [ -f /data/bootstrap.txt ];
+then
+  exec java $JVM_XX_OPTS $JVM_OPTS -jar $SERVER "$@" $EXTRA_ARGS < /data/bootstrap.txt
 else
-    # If we have a bootstrap.txt file... feed that in to the server stdin
-    if [ -f /data/bootstrap.txt ];
-    then
-        exec java $JVM_XX_OPTS $JVM_OPTS -jar $SERVER "$@" $EXTRA_ARGS < /data/bootstrap.txt
-    else
-        exec java $JVM_XX_OPTS $JVM_OPTS -jar $SERVER "$@" $EXTRA_ARGS
-    fi
+  exec java $JVM_XX_OPTS $JVM_OPTS -jar $SERVER "$@" $EXTRA_ARGS
 fi
