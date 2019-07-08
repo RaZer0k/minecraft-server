@@ -2,6 +2,7 @@
 
 function downloadSpigot {
   local match
+  local tail
   case "$TYPE" in
     *BUKKIT|*bukkit)
       match="craftbukkit"
@@ -15,17 +16,9 @@ function downloadSpigot {
       ;;
   esac
 
-  norm=$VANILLA_VERSION
-  case $VANILLA_VERSION in
-    *.*.*)
-      norm=$VANILLA_VERSION ;;
-    *.*)
-      norm=${VANILLA_VERSION}.0 ;;
-  esac
-
   url="https://cdn.getbukkit.org/"
   if [[ -z $downloadUrl ]]; then
-    downloadUrl="$url$match/$match-$norm$tail"
+    downloadUrl="$url$match/$match-$VANILLA_VERSION$tail"
     if [[ -z $downloadUrl ]]; then
       echo "ERROR: Version $VANILLA_VERSION is not supported for $TYPE"
       echo "Url: $downloadUrl"
