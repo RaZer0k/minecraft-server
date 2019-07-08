@@ -28,7 +28,7 @@ ADD https://github.com/itzg/rcon-cli/releases/download/1.3/rcon-cli_linux_amd64 
 COPY start* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
-VOLUME ["/data","/home/minecraft"]
+VOLUME ["/data"]
 COPY server.properties /tmp/server.properties
 WORKDIR /data
 
