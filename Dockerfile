@@ -24,10 +24,8 @@ RUN addgroup -g 1000 minecraft \
 
 EXPOSE 25565 25575
 
-ADD https://github.com/itzg/restify/releases/download/1.0.4/restify_linux_amd64 /usr/local/bin/restify
 ADD https://github.com/itzg/rcon-cli/releases/download/1.3/rcon-cli_linux_amd64 /usr/local/bin/rcon-cli
 COPY start* /usr/local/bin/
-COPY mcadmin.jq /usr/share
 RUN chmod +x /usr/local/bin/*
 
 VOLUME ["/data","/home/minecraft"]
@@ -41,4 +39,4 @@ ENV UID=1000 GID=1000 \
     JVM_XX_OPTS="-XX:+UseG1GC" MEMORY="1G" \
     TYPE=VANILLA VERSION=LATEST FORGEVERSION=LATEST SPONGEBRANCH=STABLE SPONGEVERSION= LEVEL=world \
     PVP=true DIFFICULTY=normal ENABLE_RCON=true RCON_PORT=25575 RCON_PASSWORD=minecraft \
-    LEVEL_TYPE=DEFAULT GENERATOR_SETTINGS= WORLD= MODPACK= ONLINE_MODE=TRUE CONSOLE=true
+    LEVEL_TYPE=DEFAULT GENERATOR_SETTINGS= WORLD= MODPACK= ONLINE_MODE=true CONSOLE=true
